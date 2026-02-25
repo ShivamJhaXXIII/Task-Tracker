@@ -1,0 +1,12 @@
+# Build outputs
+dist
+coverage
+
+# Dependencies
+node_modules
+
+# Config
+package-lock.json
+
+# Generated files
+*.log
