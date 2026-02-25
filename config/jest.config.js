@@ -13,6 +13,10 @@ module.exports = {
         // Relax some strict rules for tests
         noUnusedLocals: false,
         noUnusedParameters: false,
+        skipLibCheck: true,
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true,
+        moduleResolution: 'node'
       }
     }]
   },
@@ -41,5 +45,6 @@ module.exports = {
   },
   verbose: true,
   clearMocks: true,
-  restoreMocks: true
+  restoreMocks: true,
+  testPathIgnorePatterns: ['/node_modules/', '/dist/']
 };
