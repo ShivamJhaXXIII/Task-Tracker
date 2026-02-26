@@ -208,6 +208,21 @@ export class Task {
     );
   }
 
+  // Replace all tags (returns new Task)
+  public updateTags(tags: string[]): Task {
+    const updatedTags = TaskTags.create(tags);
+    return new Task(
+      this._id,
+      this._description,
+      this._status,
+      this._priority,
+      this._dueDate,
+      updatedTags,
+      this._createdAt,
+      new Date()
+    );
+  }
+
   // Mark as TODO
   public markAsTodo(): Task {
     return this.updateStatus(TaskStatusEnum.TODO);
