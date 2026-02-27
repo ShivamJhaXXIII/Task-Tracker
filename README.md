@@ -24,26 +24,74 @@ A task management CLI built with TypeScript and Clean Architecture.
 
 ### Prerequisites
 
-- Node.js 18+
-- npm 9+
+- Node.js 18+ ([Download](https://nodejs.org/))
+- npm 9+ (comes with Node.js)
 
-### Setup
+### Quick Start
+
+1. **Clone the repository:**
+
+```bash
+git clone <repository-url>
+cd task-tracker
+```
+
+2. **Install dependencies:**
 
 ```bash
 npm install
-npm run build
 ```
 
-### Run
+3. **Build the project:**
 
 ```bash
-# Development
-npm run dev -- --help
+npm run build
+```
 
-# Production build
+### Usage
+
+#### Development Mode
+
+Run the CLI directly with TypeScript:
+
+```bash
+npm run dev -- --help
+```
+
+#### Production Mode
+
+Use the built distribution:
+
+```bash
 npm run build
 node dist/index.js --help
+# or if installed globally
+task-cli --help
 ```
+
+### Global Installation
+
+After building, install globally:
+
+```bash
+npm run build
+npm install -g .
+```
+
+Then use from anywhere:
+
+```bash
+task-cli --help
+task-cli add "My task"
+```
+
+### Build and Development Commands
+
+- `npm install` - Install dependencies
+- `npm run build` - Compile TypeScript to `dist/`
+- `npm run build:watch` - Watch mode for TypeScript compilation
+- `npm run dev` - Run CLI in development mode
+- `npm start` - Run the built CLI
 
 ## CLI Usage
 
