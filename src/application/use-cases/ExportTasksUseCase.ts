@@ -72,10 +72,7 @@ export class ExportTasksUseCase {
   /**
    * Export tasks as CSV
    */
-  private exportAsCSV(
-    dtos: TaskResponseDTO[],
-    includeHeaders: boolean,
-  ): string {
+  private exportAsCSV(dtos: TaskResponseDTO[], includeHeaders: boolean): string {
     const lines: string[] = [];
 
     // Add headers if requested

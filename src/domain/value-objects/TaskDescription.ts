@@ -23,9 +23,7 @@ export class TaskDescription extends ValueObject<string> {
     }
 
     if (trimmed.length > this.MAX_LENGTH) {
-      throw new Error(
-        `Task description cannot exceed ${this.MAX_LENGTH} characters`
-      );
+      throw new Error(`Task description cannot exceed ${this.MAX_LENGTH} characters`);
     }
 
     return new TaskDescription(trimmed);

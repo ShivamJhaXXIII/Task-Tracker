@@ -3,10 +3,7 @@
  * Command to delete a task
  */
 import { Command } from 'commander';
-import {
-  DeleteTaskUseCase,
-  ApplicationError,
-} from '../../../application';
+import { DeleteTaskUseCase, ApplicationError } from '../../../application';
 import { ITaskRepository } from '../../../domain';
 import { Logger } from '../utils/Logger';
 import { Formatter } from '../utils/Formatter';
@@ -19,10 +16,7 @@ export class DeleteCommand {
       .alias('rm')
       .description('Delete a task')
       .argument('<id>', 'Task ID')
-      .addHelpText(
-        'after',
-        '\nExamples:\n  $ task-cli delete <id>\n  $ task-cli rm <id>',
-      )
+      .addHelpText('after', '\nExamples:\n  $ task-cli delete <id>\n  $ task-cli rm <id>')
       .action(async (id: string) => {
         try {
           // In a real CLI, we might prompt for confirmation here
@@ -30,13 +24,11 @@ export class DeleteCommand {
           await useCase.execute(id);
           Logger.success(`Task ${id} deleted successfully`);
         } catch (error) {
-          if (
-            error instanceof ApplicationError
-          ) {
+          if (error instanceof ApplicationError) {
             Formatter.formatError(
               'Failed to delete task',
               error.message,
-              'Check that the task ID exists',
+              'Check that the task ID exists'
             );
             process.exit(1);
           }

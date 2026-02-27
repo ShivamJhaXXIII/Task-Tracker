@@ -33,10 +33,7 @@ describe('Task Entity', () => {
     });
 
     it('should create task with tags', () => {
-      const task = Task.create('Buy groceries', 'medium', undefined, [
-        'shopping',
-        'food',
-      ]);
+      const task = Task.create('Buy groceries', 'medium', undefined, ['shopping', 'food']);
       expect(task.getTags().count()).toBe(2);
       expect(task.getTags().has('shopping')).toBe(true);
       expect(task.getTags().has('food')).toBe(true);
@@ -47,18 +44,10 @@ describe('Task Entity', () => {
       const task = Task.create('Buy groceries');
       const afterCreate = new Date();
 
-      expect(task.getCreatedAt().getTime()).toBeGreaterThanOrEqual(
-        beforeCreate.getTime()
-      );
-      expect(task.getCreatedAt().getTime()).toBeLessThanOrEqual(
-        afterCreate.getTime()
-      );
-      expect(task.getUpdatedAt().getTime()).toBeGreaterThanOrEqual(
-        beforeCreate.getTime()
-      );
-      expect(task.getUpdatedAt().getTime()).toBeLessThanOrEqual(
-        afterCreate.getTime()
-      );
+      expect(task.getCreatedAt().getTime()).toBeGreaterThanOrEqual(beforeCreate.getTime());
+      expect(task.getCreatedAt().getTime()).toBeLessThanOrEqual(afterCreate.getTime());
+      expect(task.getUpdatedAt().getTime()).toBeGreaterThanOrEqual(beforeCreate.getTime());
+      expect(task.getUpdatedAt().getTime()).toBeLessThanOrEqual(afterCreate.getTime());
     });
 
     it('should have unique IDs for different tasks', () => {
@@ -145,9 +134,7 @@ describe('Task Entity', () => {
     });
 
     it('should return task tags', () => {
-      const task = Task.create('Buy groceries', 'medium', undefined, [
-        'shopping',
-      ]);
+      const task = Task.create('Buy groceries', 'medium', undefined, ['shopping']);
       expect(task.getTags()).toBeInstanceOf(TaskTags);
     });
 
@@ -280,9 +267,7 @@ describe('Task Entity', () => {
     });
 
     it('should preserve existing tags', () => {
-      const task1 = Task.create('Buy groceries', 'medium', undefined, [
-        'shopping',
-      ]);
+      const task1 = Task.create('Buy groceries', 'medium', undefined, ['shopping']);
       const task2 = task1.addTag('food');
 
       expect(task2.getTags().count()).toBe(2);
@@ -300,10 +285,7 @@ describe('Task Entity', () => {
 
   describe('removeTag()', () => {
     it('should return new task with removed tag', () => {
-      const task1 = Task.create('Buy groceries', 'medium', undefined, [
-        'shopping',
-        'food',
-      ]);
+      const task1 = Task.create('Buy groceries', 'medium', undefined, ['shopping', 'food']);
       const task2 = task1.removeTag('shopping');
 
       expect(task1.getTags().count()).toBe(2);
@@ -313,9 +295,7 @@ describe('Task Entity', () => {
     });
 
     it('should not modify original task', () => {
-      const task1 = Task.create('Buy groceries', 'medium', undefined, [
-        'shopping',
-      ]);
+      const task1 = Task.create('Buy groceries', 'medium', undefined, ['shopping']);
       task1.removeTag('shopping');
 
       expect(task1.getTags().count()).toBe(1);
@@ -392,9 +372,7 @@ describe('Task Entity', () => {
 
   describe('toPrimitive()', () => {
     it('should convert task to primitive object', () => {
-      const task = Task.create('Buy groceries', 'high', new Date('2025-12-31'), [
-        'shopping',
-      ]);
+      const task = Task.create('Buy groceries', 'high', new Date('2025-12-31'), ['shopping']);
       const primitive = task.toPrimitive();
 
       expect(primitive).toHaveProperty('id');
@@ -445,11 +423,11 @@ describe('Task Entity', () => {
     it('should be immutable - readonly fields cannot be directly modified', () => {
       const task = Task.create('Buy groceries');
       const originalDescription = task.getDescription().value;
-      
+
       // Attempt to modify via TypeScript's readonly - would be caught at compile time
       // At runtime, the fields are private, so this should not affect the task
       expect(task.getDescription().value).toBe(originalDescription);
-      
+
       // Create a new task with updated description to verify immutability pattern
       const updatedTask = task.updateDescription('Modified');
       expect(task.getDescription().value).toBe('Buy groceries'); // Original unchanged

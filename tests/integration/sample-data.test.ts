@@ -33,40 +33,29 @@ describe('Create Sample Data - Integration Test', () => {
     await repository.initialize();
 
     // Create sample tasks
-    const task1 = Task.create(
-      'Complete project documentation',
-      'high',
-      new Date('2026-03-15'),
-      ['work', 'documentation'],
-    );
+    const task1 = Task.create('Complete project documentation', 'high', new Date('2026-03-15'), [
+      'work',
+      'documentation',
+    ]);
 
-    const task2 = Task.create(
-      'Review code changes',
-      'medium',
-      new Date('2026-03-10'),
-      ['work', 'review'],
-    );
+    const task2 = Task.create('Review code changes', 'medium', new Date('2026-03-10'), [
+      'work',
+      'review',
+    ]);
 
-    const task3 = Task.create(
-      'Fix bug in login system',
-      'high',
-      new Date('2026-03-05'),
-      ['work', 'bug'],
-    );
+    const task3 = Task.create('Fix bug in login system', 'high', new Date('2026-03-05'), [
+      'work',
+      'bug',
+    ]);
 
-    const task4 = Task.create(
-      'Update dependencies',
-      'low',
-      new Date('2026-03-20'),
-      ['maintenance'],
-    );
+    const task4 = Task.create('Update dependencies', 'low', new Date('2026-03-20'), [
+      'maintenance',
+    ]);
 
-    const task5 = Task.create(
-      'Write unit tests',
-      'medium',
-      new Date('2026-03-12'),
-      ['testing', 'work'],
-    );
+    const task5 = Task.create('Write unit tests', 'medium', new Date('2026-03-12'), [
+      'testing',
+      'work',
+    ]);
 
     // Save all tasks
     await repository.save(task1);

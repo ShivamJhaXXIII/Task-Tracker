@@ -1,9 +1,6 @@
 import { Task } from '../../domain/entities';
 import { ITaskRepository } from '../../domain/repositories';
-import {
-  TaskNotFoundError,
-  TaskAlreadyExistsError,
-} from '../../domain/errors';
+import { TaskNotFoundError, TaskAlreadyExistsError } from '../../domain/errors';
 import { JsonDatabase, TaskRecord } from './JsonDatabase';
 import { FileSystemError } from '../errors';
 
@@ -22,10 +19,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
     try {
       await this.database.initialize();
     } catch (error) {
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to initialize repository',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to initialize repository');
     }
   }
 
@@ -39,9 +33,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
 
       // Check if task already exists
       if (tasks.some((t) => t.id === task.getId().value)) {
-        throw new TaskAlreadyExistsError(
-          `Task with id ${task.getId().value} already exists`,
-        );
+        throw new TaskAlreadyExistsError(`Task with id ${task.getId().value} already exists`);
       }
 
       // Add the new task
@@ -53,10 +45,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
 
       return task;
     } catch (error) {
-      if (
-        error instanceof TaskAlreadyExistsError ||
-        error instanceof FileSystemError
-      ) {
+      if (error instanceof TaskAlreadyExistsError || error instanceof FileSystemError) {
         throw error;
       }
       throw FileSystemError.fromError(error as Error, 'Failed to save task');
@@ -78,16 +67,10 @@ export class FileSystemTaskRepository implements ITaskRepository {
 
       return this.persistentToTask(record);
     } catch (error) {
-      if (
-        error instanceof TaskNotFoundError ||
-        error instanceof FileSystemError
-      ) {
+      if (error instanceof TaskNotFoundError || error instanceof FileSystemError) {
         throw error;
       }
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to find task by id',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to find task by id');
     }
   }
 
@@ -102,10 +85,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       if (error instanceof FileSystemError) {
         throw error;
       }
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to find all tasks',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to find all tasks');
     }
   }
 
@@ -119,9 +99,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       const index = tasks.findIndex((t) => t.id === task.getId().value);
 
       if (index === -1) {
-        throw new TaskNotFoundError(
-          `Task with id ${task.getId().value} not found`,
-        );
+        throw new TaskNotFoundError(`Task with id ${task.getId().value} not found`);
       }
 
       // Replace the task
@@ -133,10 +111,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
 
       return task;
     } catch (error) {
-      if (
-        error instanceof TaskNotFoundError ||
-        error instanceof FileSystemError
-      ) {
+      if (error instanceof TaskNotFoundError || error instanceof FileSystemError) {
         throw error;
       }
       throw FileSystemError.fromError(error as Error, 'Failed to update task');
@@ -162,10 +137,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       // Write back to database
       await this.database.writeAll(tasks);
     } catch (error) {
-      if (
-        error instanceof TaskNotFoundError ||
-        error instanceof FileSystemError
-      ) {
+      if (error instanceof TaskNotFoundError || error instanceof FileSystemError) {
         throw error;
       }
       throw FileSystemError.fromError(error as Error, 'Failed to delete task');
@@ -184,10 +156,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       if (error instanceof FileSystemError) {
         throw error;
       }
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to find tasks by status',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to find tasks by status');
     }
   }
 
@@ -203,10 +172,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       if (error instanceof FileSystemError) {
         throw error;
       }
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to find tasks by priority',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to find tasks by priority');
     }
   }
 
@@ -222,10 +188,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       if (error instanceof FileSystemError) {
         throw error;
       }
-      throw FileSystemError.fromError(
-        error as Error,
-        'Failed to find tasks by tags',
-      );
+      throw FileSystemError.fromError(error as Error, 'Failed to find tasks by tags');
     }
   }
 
@@ -262,7 +225,7 @@ export class FileSystemTaskRepository implements ITaskRepository {
       dueDate,
       record.tags,
       createdAt,
-      updatedAt,
+      updatedAt
     );
   }
 }

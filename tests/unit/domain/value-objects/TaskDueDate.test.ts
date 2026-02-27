@@ -9,9 +9,7 @@ describe('TaskDueDate', () => {
     });
 
     it('should throw error for invalid Date', () => {
-      expect(() => TaskDueDate.create(new Date('invalid'))).toThrow(
-        'Invalid date provided'
-      );
+      expect(() => TaskDueDate.create(new Date('invalid'))).toThrow('Invalid date provided');
     });
 
     it('should throw error for null date', () => {

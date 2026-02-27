@@ -17,8 +17,7 @@ describe('TaskId', () => {
 
     it('should generate UUIDs with proper format', () => {
       const taskId = TaskId.create();
-      const uuidRegex =
-        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+      const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
       expect(uuidRegex.test(taskId.value)).toBe(true);
     });
   });

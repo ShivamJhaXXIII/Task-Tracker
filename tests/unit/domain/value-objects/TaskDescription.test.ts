@@ -24,15 +24,11 @@ describe('TaskDescription', () => {
     });
 
     it('should throw error for empty string', () => {
-      expect(() => TaskDescription.create('')).toThrow(
-        'Task description cannot be empty'
-      );
+      expect(() => TaskDescription.create('')).toThrow('Task description cannot be empty');
     });
 
     it('should throw error for whitespace-only string', () => {
-      expect(() => TaskDescription.create('   ')).toThrow(
-        'Task description cannot be empty'
-      );
+      expect(() => TaskDescription.create('   ')).toThrow('Task description cannot be empty');
     });
 
     it('should throw error when exceeding max length (500 characters)', () => {

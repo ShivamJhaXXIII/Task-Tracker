@@ -12,10 +12,10 @@ async function main(): Promise<void> {
     await app.run();
   } catch (error) {
     if (error instanceof Error) {
-      Logger.debug(error.stack || error.message);
+      Logger.debug(error.stack ?? error.message);
     }
     process.exit(1);
   }
 }
 
-main();
+void main();

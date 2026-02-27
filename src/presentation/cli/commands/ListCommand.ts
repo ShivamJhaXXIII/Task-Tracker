@@ -3,10 +3,7 @@
  * Command to list all tasks
  */
 import { Command, Option } from 'commander';
-import {
-  ListTasksUseCase,
-  type TaskResponseDTO,
-} from '../../../application';
+import { ListTasksUseCase, type TaskResponseDTO } from '../../../application';
 import { ITaskRepository } from '../../../domain';
 import { Logger } from '../utils/Logger';
 import { Formatter } from '../utils/Formatter';
@@ -19,34 +16,33 @@ export class ListCommand {
       .alias('ls')
       .description('List all tasks')
       .addOption(
-        new Option('-s, --status <status>', 'Filter by status')
-          .choices(['todo', 'in-progress', 'done']),
+        new Option('-s, --status <status>', 'Filter by status').choices([
+          'todo',
+          'in-progress',
+          'done',
+        ])
       )
       .addOption(
-        new Option('-p, --priority <priority>', 'Filter by priority')
-          .choices(['low', 'medium', 'high']),
+        new Option('-p, --priority <priority>', 'Filter by priority').choices([
+          'low',
+          'medium',
+          'high',
+        ])
       )
       .addOption(
         new Option('--sort <field>', 'Sort field')
           .choices(['priority', 'dueDate', 'createdAt', 'updatedAt', 'description'])
-          .default('createdAt'),
+          .default('createdAt')
       )
       .addOption(
-        new Option('--order <order>', 'Sort order')
-          .choices(['asc', 'desc'])
-          .default('asc'),
+        new Option('--order <order>', 'Sort order').choices(['asc', 'desc']).default('asc')
       )
       .addHelpText(
         'after',
-        '\nExamples:\n  $ task-cli list\n  $ task-cli list --status todo --priority high\n  $ task-cli ls --sort updatedAt --order desc',
+        '\nExamples:\n  $ task-cli list\n  $ task-cli list --status todo --priority high\n  $ task-cli ls --sort updatedAt --order desc'
       )
       .action(
-        async (options: {
-          status?: string;
-          priority?: string;
-          sort: string;
-          order: string;
-        }) => {
+        async (options: { status?: string; priority?: string; sort: string; order: string }) => {
           try {
             let tasks: TaskResponseDTO[] = await useCase.execute();
 
@@ -93,11 +89,11 @@ export class ListCommand {
             Formatter.formatError(
               'Failed to list tasks',
               error instanceof Error ? error.message : 'Unknown error',
-              'Try running without filters first: task-cli list',
+              'Try running without filters first: task-cli list'
             );
             throw error;
           }
-        },
+        }
       );
   }
 }

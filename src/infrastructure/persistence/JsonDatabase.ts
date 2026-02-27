@@ -38,7 +38,7 @@ export class JsonDatabase {
         0,
         this.filePath.lastIndexOf('/') !== -1
           ? this.filePath.lastIndexOf('/')
-          : this.filePath.lastIndexOf('\\'),
+          : this.filePath.lastIndexOf('\\')
       );
 
       // Ensure directory exists
@@ -55,7 +55,7 @@ export class JsonDatabase {
       this.initialized = true;
     } catch (error) {
       throw new Error(
-        `Failed to initialize JSON database: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to initialize JSON database: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -87,7 +87,7 @@ export class JsonDatabase {
       return tasks as TaskRecord[];
     } catch (error) {
       throw new Error(
-        `Failed to read from database: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to read from database: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -110,7 +110,7 @@ export class JsonDatabase {
       await fs.writeFile(this.filePath, data, 'utf-8');
     } catch (error) {
       throw new Error(
-        `Failed to write to database: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to write to database: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -128,7 +128,7 @@ export class JsonDatabase {
       await this.writeAll([]);
     } catch (error) {
       throw new Error(
-        `Failed to clear database: ${error instanceof Error ? error.message : String(error)}`,
+        `Failed to clear database: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

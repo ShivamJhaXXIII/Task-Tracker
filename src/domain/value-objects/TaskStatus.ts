@@ -52,9 +52,7 @@ export class TaskStatus extends ValueObject<TaskStatusEnum> {
       case TaskStatusEnum.DONE:
         return TaskStatus.done();
       default:
-        throw new Error(
-          `Invalid task status: ${status}. Must be one of: todo, in-progress, done`
-        );
+        throw new Error(`Invalid task status: ${status}. Must be one of: todo, in-progress, done`);
     }
   }
 

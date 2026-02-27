@@ -99,9 +99,7 @@ export class TaskTags extends ValueObject<string[]> {
   }
 
   private static normalizeAndValidateTags(tags: string[]): string[] {
-    const normalized = tags
-      .map((tag) => tag.trim())
-      .filter((tag) => tag !== '');
+    const normalized = tags.map((tag) => tag.trim()).filter((tag) => tag !== '');
 
     // Remove duplicates
     const unique = [...new Set(normalized)];

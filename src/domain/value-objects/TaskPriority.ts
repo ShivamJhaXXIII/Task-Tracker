@@ -58,9 +58,7 @@ export class TaskPriority extends ValueObject<TaskPriorityEnum> {
       case TaskPriorityEnum.HIGH:
         return TaskPriority.high();
       default:
-        throw new Error(
-          `Invalid task priority: ${priority}. Must be one of: low, medium, high`
-        );
+        throw new Error(`Invalid task priority: ${priority}. Must be one of: low, medium, high`);
     }
   }
 

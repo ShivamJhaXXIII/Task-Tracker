@@ -24,33 +24,22 @@ export class CreateCommand {
       .addOption(
         new Option('-p, --priority <priority>', 'Task priority')
           .choices(['low', 'medium', 'high'])
-          .default('medium'),
+          .default('medium')
       )
-      .option(
-        '-d, --due <date>',
-        'Due date (YYYY-MM-DD format)',
-      )
-      .option(
-        '-t, --tags <tags>',
-        'Comma-separated tags (e.g., work,urgent)',
-      )
+      .option('-d, --due <date>', 'Due date (YYYY-MM-DD format)')
+      .option('-t, --tags <tags>', 'Comma-separated tags (e.g., work,urgent)')
       .addHelpText(
         'after',
-        '\nExamples:\n  $ task-cli add "Prepare sprint demo" --priority high --tags work,demo\n  $ task-cli create "Buy groceries" --due 2026-03-15',
+        '\nExamples:\n  $ task-cli add "Prepare sprint demo" --priority high --tags work,demo\n  $ task-cli create "Buy groceries" --due 2026-03-15'
       )
       .action(
-        async (
-          description: string,
-          options: { priority: string; due?: string; tags?: string },
-        ) => {
+        async (description: string, options: { priority: string; due?: string; tags?: string }) => {
           try {
             const dto: CreateTaskDTO = {
               description,
               priority: options.priority as 'low' | 'medium' | 'high',
               dueDate: options.due ? new Date(options.due) : undefined,
-              tags: options.tags
-                ? options.tags.split(',').map((t) => t.trim())
-                : undefined,
+              tags: options.tags ? options.tags.split(',').map((t) => t.trim()) : undefined,
             };
 
             const task: TaskResponseDTO = await useCase.execute(dto);
@@ -62,13 +51,13 @@ export class CreateCommand {
               Formatter.formatError(
                 'Failed to create task',
                 error.message,
-                'Check that all inputs are valid',
+                'Check that all inputs are valid'
               );
               process.exit(1);
             }
             throw error;
           }
-        },
+        }
       );
   }
 }

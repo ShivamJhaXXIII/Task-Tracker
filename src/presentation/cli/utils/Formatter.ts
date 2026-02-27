@@ -155,40 +155,26 @@ export class Formatter {
 
     lines.push(chalk.bold('Overview:'));
     lines.push(`  ${chalk.gray('Total Tasks:')} ${chalk.yellow(stats.totalTasks)}`);
-    lines.push(`  ${chalk.gray('Completion Rate:')} ${chalk.green(stats.completionPercentage.toFixed(1))}%`);
+    lines.push(
+      `  ${chalk.gray('Completion Rate:')} ${chalk.green(stats.completionPercentage.toFixed(1))}%`
+    );
     lines.push('');
 
     lines.push(chalk.bold('By Status:'));
-    lines.push(
-      `  ${chalk.gray('To Do:')} ${chalk.gray(stats.byStatus.todo ?? 0)}`,
-    );
-    lines.push(
-      `  ${chalk.gray('In Progress:')} ${chalk.yellow(stats.byStatus.inProgress ?? 0)}`,
-    );
-    lines.push(
-      `  ${chalk.gray('Done:')} ${chalk.green(stats.byStatus.done ?? 0)}`,
-    );
+    lines.push(`  ${chalk.gray('To Do:')} ${chalk.gray(stats.byStatus.todo ?? 0)}`);
+    lines.push(`  ${chalk.gray('In Progress:')} ${chalk.yellow(stats.byStatus.inProgress ?? 0)}`);
+    lines.push(`  ${chalk.gray('Done:')} ${chalk.green(stats.byStatus.done ?? 0)}`);
     lines.push('');
 
     lines.push(chalk.bold('By Priority:'));
-    lines.push(
-      `  ${chalk.gray('High:')} ${chalk.red(stats.byPriority.high ?? 0)}`,
-    );
-    lines.push(
-      `  ${chalk.gray('Medium:')} ${chalk.yellow(stats.byPriority.medium ?? 0)}`,
-    );
-    lines.push(
-      `  ${chalk.gray('Low:')} ${chalk.green(stats.byPriority.low ?? 0)}`,
-    );
+    lines.push(`  ${chalk.gray('High:')} ${chalk.red(stats.byPriority.high ?? 0)}`);
+    lines.push(`  ${chalk.gray('Medium:')} ${chalk.yellow(stats.byPriority.medium ?? 0)}`);
+    lines.push(`  ${chalk.gray('Low:')} ${chalk.green(stats.byPriority.low ?? 0)}`);
     lines.push('');
 
     lines.push(chalk.bold('Due Dates:'));
-    lines.push(
-      `  ${chalk.gray('With Due Date:')} ${stats.tasksWithDueDate}`,
-    );
-    lines.push(
-      `  ${chalk.gray('No Due Date:')} ${stats.tasksWithoutDueDate}`,
-    );
+    lines.push(`  ${chalk.gray('With Due Date:')} ${stats.tasksWithDueDate}`);
+    lines.push(`  ${chalk.gray('No Due Date:')} ${stats.tasksWithoutDueDate}`);
     lines.push(`  ${chalk.gray('Overdue:')} ${chalk.red(stats.overdueTasks)}`);
     lines.push('');
 

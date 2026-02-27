@@ -47,15 +47,11 @@ class MockTaskRepository implements ITaskRepository {
   }
 
   async findByStatus(status: string): Promise<Task[]> {
-    return Array.from(this.tasks.values()).filter(
-      (t) => t.getStatus().value === status
-    );
+    return Array.from(this.tasks.values()).filter((t) => t.getStatus().value === status);
   }
 
   async findByPriority(priority: string): Promise<Task[]> {
-    return Array.from(this.tasks.values()).filter(
-      (t) => t.getPriority().value === priority
-    );
+    return Array.from(this.tasks.values()).filter((t) => t.getPriority().value === priority);
   }
 
   async findByTags(tag: string): Promise<Task[]> {
@@ -164,9 +160,7 @@ describe('ITaskRepository interface', () => {
 
       const todoTasks = await repository.findByStatus('todo');
       expect(todoTasks).toHaveLength(2);
-      expect(
-        todoTasks.every((t: Task) => t.getStatus().value === 'todo')
-      ).toBe(true);
+      expect(todoTasks.every((t: Task) => t.getStatus().value === 'todo')).toBe(true);
     });
 
     it('should return empty array when no tasks match status', async () => {
@@ -190,9 +184,7 @@ describe('ITaskRepository interface', () => {
 
       const highPriorityTasks = await repository.findByPriority('high');
       expect(highPriorityTasks).toHaveLength(2);
-      expect(
-        highPriorityTasks.every((t: Task) => t.getPriority().value === 'high')
-      ).toBe(true);
+      expect(highPriorityTasks.every((t: Task) => t.getPriority().value === 'high')).toBe(true);
     });
 
     it('should return empty array when no tasks match priority', async () => {
@@ -273,25 +265,16 @@ describe('ITaskRepository interface', () => {
 
     it('should handle complex filtering scenarios', async () => {
       const task1 = Task.create('Work task', 'high', undefined, ['work']);
-      const task2 = Task.create(
-        'Personal task',
-        'low',
-        undefined,
-        ['personal']
-      );
-      const task3 = Task.create(
-        'Urgent work task',
-        'high',
-        undefined,
-        ['work', 'urgent']
-      );
+      const task2 = Task.create('Personal task', 'low', undefined, ['personal']);
+      const task3 = Task.create('Urgent work task', 'high', undefined, ['work', 'urgent']);
 
       await repository.save(task1);
       await repository.save(task2);
       await repository.save(task3);
 
-      const highPriorityWorkTasks = (await repository.findByPriority('high'))
-        .filter((t: Task) => t.getTags().has('work'));
+      const highPriorityWorkTasks = (await repository.findByPriority('high')).filter((t: Task) =>
+        t.getTags().has('work')
+      );
 
       expect(highPriorityWorkTasks).toHaveLength(2);
     });

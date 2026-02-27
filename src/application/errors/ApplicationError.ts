@@ -8,7 +8,7 @@ export class ApplicationError extends Error {
 
   constructor(
     message: string,
-    readonly code: string = 'APPLICATION_ERROR',
+    readonly code: string = 'APPLICATION_ERROR'
   ) {
     super(message);
     Object.setPrototypeOf(this, ApplicationError.prototype);

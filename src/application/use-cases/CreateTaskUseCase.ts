@@ -20,7 +20,7 @@ export class CreateTaskUseCase {
       dto.description,
       dto.priority || 'medium',
       dto.dueDate,
-      dto.tags || [],
+      dto.tags || []
     );
 
     // Save to repository

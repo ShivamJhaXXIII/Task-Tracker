@@ -40,9 +40,7 @@ export class TaskDomainService {
    * @param tasks - Array of tasks to analyze
    * @returns Object containing total, completed, inProgress, todo, and overdue counts
    */
-  public static getTaskStats(
-    tasks: Task[]
-  ): {
+  public static getTaskStats(tasks: Task[]): {
     total: number;
     completed: number;
     inProgress: number;
@@ -82,8 +80,7 @@ export class TaskDomainService {
   public static rankByUrgency(tasks: Task[]): Task[] {
     return [...tasks].sort((a, b) => {
       // First, compare by priority (higher priority first)
-      const priorityCompare =
-        b.getPriority().toNumeric() - a.getPriority().toNumeric();
+      const priorityCompare = b.getPriority().toNumeric() - a.getPriority().toNumeric();
       if (priorityCompare !== 0) {
         return priorityCompare;
       }
@@ -111,10 +108,7 @@ export class TaskDomainService {
    * @param toStatus - Desired task status
    * @returns True if the transition is allowed
    */
-  public static isValidStatusTransition(
-    _fromStatus: TaskStatus,
-    _toStatus: TaskStatus
-  ): boolean {
+  public static isValidStatusTransition(_fromStatus: TaskStatus, _toStatus: TaskStatus): boolean {
     // Add business logic here if needed
     // For example:
     // if (fromStatus.isDone() && !toStatus.isDone()) {

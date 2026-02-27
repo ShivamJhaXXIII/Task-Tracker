@@ -79,10 +79,7 @@ describe('DomainError (base class)', () => {
     });
 
     it('should support error code discrimination', () => {
-      const errors = [
-        new TaskNotFoundError('task-1'),
-        new InvalidTaskError('reason'),
-      ];
+      const errors = [new TaskNotFoundError('task-1'), new InvalidTaskError('reason')];
 
       const errorCodes = errors
         .filter((e) => {

@@ -26,36 +26,25 @@ describe('TaskDomainService', () => {
 
   describe('getTasksByStatus()', () => {
     it('should return all tasks with TODO status', () => {
-      const todoTasks = TaskDomainService.getTasksByStatus(
-        tasks,
-        TaskStatus.todo()
-      );
+      const todoTasks = TaskDomainService.getTasksByStatus(tasks, TaskStatus.todo());
       expect(todoTasks.length).toBe(3); // Buy groceries, Call dentist, Vacuum house
       expect(todoTasks.every((t) => t.isTodo())).toBe(true);
     });
 
     it('should return all tasks with IN_PROGRESS status', () => {
-      const inProgressTasks = TaskDomainService.getTasksByStatus(
-        tasks,
-        TaskStatus.inProgress()
-      );
+      const inProgressTasks = TaskDomainService.getTasksByStatus(tasks, TaskStatus.inProgress());
       expect(inProgressTasks.length).toBe(2); // Wash car, Submit report
       expect(inProgressTasks.every((t) => t.isInProgress())).toBe(true);
     });
 
     it('should return all tasks with DONE status', () => {
-      const doneTasks = TaskDomainService.getTasksByStatus(
-        tasks,
-        TaskStatus.done()
-      );
+      const doneTasks = TaskDomainService.getTasksByStatus(tasks, TaskStatus.done());
       expect(doneTasks.length).toBe(1); // Review code
       expect(doneTasks.every((t) => t.isDone())).toBe(true);
     });
 
     it('should return empty array when no tasks match status', () => {
-      const emptyList = tasks.filter(
-        (t) => t.getStatus().value === TaskStatusEnum.DONE
-      );
+      const emptyList = tasks.filter((t) => t.getStatus().value === TaskStatusEnum.DONE);
       const result = TaskDomainService.getTasksByStatus(
         emptyList.slice(1), // Remove the one DONE task
         TaskStatus.done()
@@ -72,10 +61,7 @@ describe('TaskDomainService', () => {
 
   describe('getTasksByPriority()', () => {
     it('should return all tasks with HIGH priority', () => {
-      const highPriorityTasks = TaskDomainService.getTasksByPriority(
-        tasks,
-        TaskPriority.high()
-      );
+      const highPriorityTasks = TaskDomainService.getTasksByPriority(tasks, TaskPriority.high());
       expect(highPriorityTasks.length).toBe(3); // Buy groceries, Review code, Submit report
       expect(highPriorityTasks.every((t) => t.getPriority().isHigh())).toBe(true);
     });
@@ -86,28 +72,18 @@ describe('TaskDomainService', () => {
         TaskPriority.medium()
       );
       expect(mediumPriorityTasks.length).toBe(1); // Wash car
-      expect(mediumPriorityTasks.every((t) => t.getPriority().isMedium())).toBe(
-        true
-      );
+      expect(mediumPriorityTasks.every((t) => t.getPriority().isMedium())).toBe(true);
     });
 
     it('should return all tasks with LOW priority', () => {
-      const lowPriorityTasks = TaskDomainService.getTasksByPriority(
-        tasks,
-        TaskPriority.low()
-      );
+      const lowPriorityTasks = TaskDomainService.getTasksByPriority(tasks, TaskPriority.low());
       expect(lowPriorityTasks.length).toBe(2); // Call dentist, Vacuum house
       expect(lowPriorityTasks.every((t) => t.getPriority().isLow())).toBe(true);
     });
 
     it('should return empty array when no tasks match priority', () => {
-      const emptyList = tasks.filter(
-        (t) => !t.getPriority().isLow()
-      );
-      const result = TaskDomainService.getTasksByPriority(
-        emptyList,
-        TaskPriority.low()
-      );
+      const emptyList = tasks.filter((t) => !t.getPriority().isLow());
+      const result = TaskDomainService.getTasksByPriority(emptyList, TaskPriority.low());
       expect(result.length).toBe(0);
     });
   });
@@ -240,26 +216,18 @@ describe('TaskDomainService', () => {
 
       // Check that high priority tasks come first
       const highPriorityTasks = ranked.filter((t) => t.getPriority().isHigh());
-      const mediumPriorityTasks = ranked.filter((t) =>
-        t.getPriority().isMedium()
-      );
+      const mediumPriorityTasks = ranked.filter((t) => t.getPriority().isMedium());
       const lowPriorityTasks = ranked.filter((t) => t.getPriority().isLow());
 
       const firstHighIndex = ranked.findIndex((t) => t.getPriority().isHigh());
-      const firstMediumIndex = ranked.findIndex((t) =>
-        t.getPriority().isMedium()
-      );
+      const firstMediumIndex = ranked.findIndex((t) => t.getPriority().isMedium());
       const firstLowIndex = ranked.findIndex((t) => t.getPriority().isLow());
 
       if (highPriorityTasks.length > 0) {
-        expect(firstHighIndex).toBeLessThan(
-          firstMediumIndex === -1 ? Infinity : firstMediumIndex
-        );
+        expect(firstHighIndex).toBeLessThan(firstMediumIndex === -1 ? Infinity : firstMediumIndex);
       }
       if (mediumPriorityTasks.length > 0) {
-        expect(firstMediumIndex).toBeLessThan(
-          firstLowIndex === -1 ? Infinity : firstLowIndex
-        );
+        expect(firstMediumIndex).toBeLessThan(firstLowIndex === -1 ? Infinity : firstLowIndex);
       }
     });
 
@@ -302,10 +270,7 @@ describe('TaskDomainService', () => {
 
   describe('integration scenarios', () => {
     it('should filter and rank high-priority overdue tasks', () => {
-      const highPriorityTasks = TaskDomainService.getTasksByPriority(
-        tasks,
-        TaskPriority.high()
-      );
+      const highPriorityTasks = TaskDomainService.getTasksByPriority(tasks, TaskPriority.high());
       const overdueTasks = TaskDomainService.getOverdueTasks(highPriorityTasks);
       const ranked = TaskDomainService.rankByUrgency(overdueTasks);
 
@@ -315,10 +280,7 @@ describe('TaskDomainService', () => {
     });
 
     it('should generate accurate statistics after filtering', () => {
-      const todoTasks = TaskDomainService.getTasksByStatus(
-        tasks,
-        TaskStatus.todo()
-      );
+      const todoTasks = TaskDomainService.getTasksByStatus(tasks, TaskStatus.todo());
       const stats = TaskDomainService.getTaskStats(todoTasks);
 
       expect(stats.completed).toBe(0);

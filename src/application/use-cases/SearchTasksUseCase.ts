@@ -81,16 +81,12 @@ export class SearchTasksUseCase {
 
     // Filter by status
     if (criteria.status) {
-      filtered = filtered.filter(
-        (t) => t.getStatus().value === criteria.status,
-      );
+      filtered = filtered.filter((t) => t.getStatus().value === criteria.status);
     }
 
     // Filter by priority
     if (criteria.priority) {
-      filtered = filtered.filter(
-        (t) => t.getPriority().value === criteria.priority,
-      );
+      filtered = filtered.filter((t) => t.getPriority().value === criteria.priority);
     }
 
     // Filter by tags (match any tag)
@@ -105,7 +101,7 @@ export class SearchTasksUseCase {
     if (criteria.keyword) {
       const lowerKeyword = criteria.keyword.toLowerCase();
       filtered = filtered.filter((t) =>
-        t.getDescription().value.toLowerCase().includes(lowerKeyword),
+        t.getDescription().value.toLowerCase().includes(lowerKeyword)
       );
     }
 
@@ -125,10 +121,7 @@ export class SearchTasksUseCase {
   /**
    * Apply sorting to the task list
    */
-  private applySorting(
-    tasks: Task[],
-    criteria: SearchCriteria,
-  ): Task[] {
+  private applySorting(tasks: Task[], criteria: SearchCriteria): Task[] {
     if (!criteria.sortBy) {
       return tasks;
     }
@@ -141,8 +134,7 @@ export class SearchTasksUseCase {
 
       switch (criteria.sortBy) {
         case 'priority':
-          compareValue =
-            a.getPriority().toNumeric() - b.getPriority().toNumeric();
+          compareValue = a.getPriority().toNumeric() - b.getPriority().toNumeric();
           break;
 
         case 'dueDate': {
@@ -150,29 +142,25 @@ export class SearchTasksUseCase {
           const bDate = b.getDueDate();
 
           if (!aDate && !bDate) compareValue = 0;
-          else if (!aDate) compareValue = 1; // Tasks without due date go last
+          else if (!aDate)
+            compareValue = 1; // Tasks without due date go last
           else if (!bDate) compareValue = -1;
           else {
-            compareValue =
-              aDate.value.getTime() - bDate.value.getTime();
+            compareValue = aDate.value.getTime() - bDate.value.getTime();
           }
           break;
         }
 
         case 'createdAt':
-          compareValue =
-            a.getCreatedAt().getTime() - b.getCreatedAt().getTime();
+          compareValue = a.getCreatedAt().getTime() - b.getCreatedAt().getTime();
           break;
 
         case 'updatedAt':
-          compareValue =
-            a.getUpdatedAt().getTime() - b.getUpdatedAt().getTime();
+          compareValue = a.getUpdatedAt().getTime() - b.getUpdatedAt().getTime();
           break;
 
         case 'description':
-          compareValue = a
-            .getDescription()
-            .value.localeCompare(b.getDescription().value);
+          compareValue = a.getDescription().value.localeCompare(b.getDescription().value);
           break;
       }
 

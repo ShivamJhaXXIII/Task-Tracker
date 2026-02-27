@@ -35,9 +35,7 @@ describe('TaskPriority', () => {
     });
 
     it('should throw error for invalid priority', () => {
-      expect(() => TaskPriority.fromString('critical')).toThrow(
-        'Invalid task priority'
-      );
+      expect(() => TaskPriority.fromString('critical')).toThrow('Invalid task priority');
     });
 
     it('should throw error for empty priority', () => {

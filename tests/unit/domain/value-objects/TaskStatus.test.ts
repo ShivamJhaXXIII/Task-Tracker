@@ -35,9 +35,7 @@ describe('TaskStatus', () => {
     });
 
     it('should throw error for invalid status', () => {
-      expect(() => TaskStatus.fromString('invalid')).toThrow(
-        'Invalid task status'
-      );
+      expect(() => TaskStatus.fromString('invalid')).toThrow('Invalid task status');
     });
 
     it('should throw error for empty status', () => {
@@ -46,9 +44,7 @@ describe('TaskStatus', () => {
 
     it('should handle all valid statuses', () => {
       expect(TaskStatus.fromString('todo').value).toBe(TaskStatusEnum.TODO);
-      expect(TaskStatus.fromString('in-progress').value).toBe(
-        TaskStatusEnum.IN_PROGRESS
-      );
+      expect(TaskStatus.fromString('in-progress').value).toBe(TaskStatusEnum.IN_PROGRESS);
       expect(TaskStatus.fromString('done').value).toBe(TaskStatusEnum.DONE);
     });
   });

@@ -3,10 +3,7 @@
  * Command to search for tasks with filtering and sorting
  */
 import { Command, Option } from 'commander';
-import {
-  SearchTasksUseCase,
-  type SearchCriteria,
-} from '../../../application';
+import { SearchTasksUseCase, type SearchCriteria } from '../../../application';
 import { ITaskRepository } from '../../../domain';
 import { Logger } from '../utils/Logger';
 import { Formatter } from '../utils/Formatter';
@@ -19,38 +16,33 @@ export class SearchCommand {
       .description('Search for tasks with filters')
       .argument('[query]', 'Keyword to search for')
       .addOption(
-        new Option('-s, --status <status>', 'Filter by status')
-          .choices(['todo', 'in-progress', 'done']),
+        new Option('-s, --status <status>', 'Filter by status').choices([
+          'todo',
+          'in-progress',
+          'done',
+        ])
       )
       .addOption(
-        new Option('-p, --priority <priority>', 'Filter by priority')
-          .choices(['low', 'medium', 'high']),
+        new Option('-p, --priority <priority>', 'Filter by priority').choices([
+          'low',
+          'medium',
+          'high',
+        ])
       )
-      .option(
-        '-t, --tags <tags>',
-        'Filter by comma-separated tags',
-      )
-      .option(
-        '--overdue',
-        'Only show overdue tasks',
-      )
-      .option(
-        '--done',
-        'Only show done tasks',
-      )
+      .option('-t, --tags <tags>', 'Filter by comma-separated tags')
+      .option('--overdue', 'Only show overdue tasks')
+      .option('--done', 'Only show done tasks')
       .addOption(
         new Option('--sort <field>', 'Sort field')
           .choices(['priority', 'dueDate', 'createdAt', 'updatedAt', 'description'])
-          .default('createdAt'),
+          .default('createdAt')
       )
       .addOption(
-        new Option('--order <order>', 'Sort order')
-          .choices(['asc', 'desc'])
-          .default('asc'),
+        new Option('--order <order>', 'Sort order').choices(['asc', 'desc']).default('asc')
       )
       .addHelpText(
         'after',
-        '\nExamples:\n  $ task-cli search "report"\n  $ task-cli search --status in-progress --priority high\n  $ task-cli search "api" --tags work,backend --sort dueDate --order asc',
+        '\nExamples:\n  $ task-cli search "report"\n  $ task-cli search --status in-progress --priority high\n  $ task-cli search "api" --tags work,backend --sort dueDate --order asc'
       )
       .action(
         async (
@@ -63,16 +55,14 @@ export class SearchCommand {
             done?: boolean;
             sort: string;
             order: string;
-          },
+          }
         ) => {
           try {
             const criteria: SearchCriteria = {
               keyword: query,
               status: options.status as any,
               priority: options.priority as any,
-              tags: options.tags
-                ? options.tags.split(',').map((t) => t.trim())
-                : undefined,
+              tags: options.tags ? options.tags.split(',').map((t) => t.trim()) : undefined,
               isOverdue: options.overdue,
               isDone: options.done,
               sortBy: options.sort as any,
@@ -92,11 +82,11 @@ export class SearchCommand {
             Formatter.formatError(
               'Search failed',
               error instanceof Error ? error.message : 'Unknown error',
-              'Try a simpler query first, e.g. task-cli search "keyword"',
+              'Try a simpler query first, e.g. task-cli search "keyword"'
             );
             throw error;
           }
-        },
+        }
       );
   }
 }

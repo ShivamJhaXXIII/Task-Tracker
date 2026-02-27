@@ -7,7 +7,7 @@ export class FileSystemError extends Error {
 
   constructor(
     message: string,
-    readonly code?: string,
+    readonly code?: string
   ) {
     super(message);
     Object.setPrototypeOf(this, FileSystemError.prototype);
@@ -17,9 +17,7 @@ export class FileSystemError extends Error {
    * Create a FileSystemError from a standard Error
    */
   static fromError(error: Error, context?: string): FileSystemError {
-    const message = context
-      ? `${context}: ${error.message}`
-      : error.message;
+    const message = context ? `${context}: ${error.message}` : error.message;
 
     const nodeError = error as NodeJS.ErrnoException;
     return new FileSystemError(message, nodeError.code);

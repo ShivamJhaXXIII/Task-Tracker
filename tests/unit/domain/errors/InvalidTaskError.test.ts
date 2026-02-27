@@ -45,8 +45,7 @@ describe('InvalidTaskError', () => {
     });
 
     it('should preserve exact reason text', () => {
-      const reason =
-        'Task descriptions must be between 1 and 500 characters';
+      const reason = 'Task descriptions must be between 1 and 500 characters';
       const error = new InvalidTaskError(reason);
       expect(error.getReason()).toBe(reason);
     });

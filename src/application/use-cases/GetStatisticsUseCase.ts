@@ -104,9 +104,7 @@ export class GetStatisticsUseCase {
     const averageTagsPerTask =
       totalTasks > 0
         ? Math.round(
-            (Object.values(tagCounts).reduce((sum, count) => sum + count, 0) /
-              totalTasks) *
-              10,
+            (Object.values(tagCounts).reduce((sum, count) => sum + count, 0) / totalTasks) * 10
           ) / 10
         : 0;
 
@@ -131,9 +129,7 @@ export class GetStatisticsUseCase {
   /**
    * Count tasks by status
    */
-  private countByStatus(
-    tasks: Task[],
-  ): TaskStatistics['byStatus'] {
+  private countByStatus(tasks: Task[]): TaskStatistics['byStatus'] {
     const counts = {
       todo: 0,
       inProgress: 0,
@@ -157,9 +153,7 @@ export class GetStatisticsUseCase {
   /**
    * Count tasks by priority
    */
-  private countByPriority(
-    tasks: Task[],
-  ): TaskStatistics['byPriority'] {
+  private countByPriority(tasks: Task[]): TaskStatistics['byPriority'] {
     const counts = {
       low: 0,
       medium: 0,
@@ -183,9 +177,7 @@ export class GetStatisticsUseCase {
   /**
    * Collect all unique tags and count occurrences
    */
-  private collectTags(
-    tasks: Task[],
-  ): { allTags: string[]; tagCounts: Record<string, number> } {
+  private collectTags(tasks: Task[]): { allTags: string[]; tagCounts: Record<string, number> } {
     const tagCounts: Record<string, number> = {};
 
     tasks.forEach((task) => {

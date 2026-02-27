@@ -63,11 +63,12 @@ export class App {
 
     // Add help command
     this.program.addCommand(
-      this.program.createCommand('help')
+      this.program
+        .createCommand('help')
         .description('Show help information')
         .action(() => {
           this.program.outputHelp();
-        }),
+        })
     );
   }
 

@@ -3,11 +3,7 @@
  * Command to update a task
  */
 import { Command, Option } from 'commander';
-import {
-  UpdateTaskUseCase,
-  UpdateTaskDTO,
-  ApplicationError,
-} from '../../../application';
+import { UpdateTaskUseCase, UpdateTaskDTO, ApplicationError } from '../../../application';
 import { ITaskRepository } from '../../../domain';
 import { Logger } from '../utils/Logger';
 import { Formatter } from '../utils/Formatter';
@@ -20,29 +16,18 @@ export class UpdateCommand {
       .alias('edit')
       .description('Update a task')
       .argument('<id>', 'Task ID')
-      .option(
-        '--description <description>',
-        'New task description',
+      .option('--description <description>', 'New task description')
+      .addOption(
+        new Option('--status <status>', 'New status').choices(['todo', 'in-progress', 'done'])
       )
       .addOption(
-        new Option('--status <status>', 'New status')
-          .choices(['todo', 'in-progress', 'done']),
+        new Option('--priority <priority>', 'New priority').choices(['low', 'medium', 'high'])
       )
-      .addOption(
-        new Option('--priority <priority>', 'New priority')
-          .choices(['low', 'medium', 'high']),
-      )
-      .option(
-        '--due <date>',
-        'New due date (YYYY-MM-DD format or empty to remove)',
-      )
-      .option(
-        '--tags <tags>',
-        'New comma-separated tags (or empty to remove)',
-      )
+      .option('--due <date>', 'New due date (YYYY-MM-DD format or empty to remove)')
+      .option('--tags <tags>', 'New comma-separated tags (or empty to remove)')
       .addHelpText(
         'after',
-        '\nExamples:\n  $ task-cli update <id> --status in-progress\n  $ task-cli edit <id> --priority high --tags work,urgent\n  $ task-cli update <id> --description "Updated task title"',
+        '\nExamples:\n  $ task-cli update <id> --status in-progress\n  $ task-cli edit <id> --priority high --tags work,urgent\n  $ task-cli update <id> --description "Updated task title"'
       )
       .action(
         async (
@@ -53,7 +38,7 @@ export class UpdateCommand {
             priority?: string;
             due?: string;
             tags?: string;
-          },
+          }
         ) => {
           try {
             const dto: UpdateTaskDTO = {
@@ -78,19 +63,17 @@ export class UpdateCommand {
             Logger.empty();
             Logger.log(Formatter.formatTask(task));
           } catch (error) {
-            if (
-              error instanceof ApplicationError
-            ) {
+            if (error instanceof ApplicationError) {
               Formatter.formatError(
                 'Failed to update task',
                 error.message,
-                'Check that the task ID exists and inputs are valid',
+                'Check that the task ID exists and inputs are valid'
               );
               process.exit(1);
             }
             throw error;
           }
-        },
+        }
       );
   }
 }

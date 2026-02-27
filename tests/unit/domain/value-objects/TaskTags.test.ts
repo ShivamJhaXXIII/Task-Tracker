@@ -40,9 +40,7 @@ describe('TaskTags', () => {
 
     it('should throw error when exceeding max tags (20)', () => {
       const manyTags = Array.from({ length: 21 }, (_, i) => `tag${i}`);
-      expect(() => TaskTags.create(manyTags)).toThrow(
-        'Cannot have more than 20 tags'
-      );
+      expect(() => TaskTags.create(manyTags)).toThrow('Cannot have more than 20 tags');
     });
 
     it('should allow maximum of 20 unique tags', () => {
@@ -101,9 +99,7 @@ describe('TaskTags', () => {
     it('should throw error for tag exceeding max length', () => {
       const tags = TaskTags.create(['work']);
       const longTag = 'a'.repeat(51);
-      expect(() => tags.add(longTag)).toThrow(
-        'Tag cannot exceed 50 characters'
-      );
+      expect(() => tags.add(longTag)).toThrow('Tag cannot exceed 50 characters');
     });
 
     it('should throw error when adding tag exceeds max tags limit', () => {

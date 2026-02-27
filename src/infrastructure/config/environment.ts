@@ -22,12 +22,13 @@ export const getEnvironmentConfig = (): EnvironmentConfig => {
     | 'production'
     | 'test';
 
-  const logLevel = (
-    process.env['LOG_LEVEL'] || (nodeEnv === 'production' ? 'info' : 'debug')
-  ) as 'debug' | 'info' | 'warn' | 'error';
+  const logLevel = (process.env['LOG_LEVEL'] || (nodeEnv === 'production' ? 'info' : 'debug')) as
+    | 'debug'
+    | 'info'
+    | 'warn'
+    | 'error';
 
-  const enableLogging =
-    process.env['ENABLE_LOGGING'] !== 'false' && nodeEnv !== 'test';
+  const enableLogging = process.env['ENABLE_LOGGING'] !== 'false' && nodeEnv !== 'test';
 
   return {
     nodeEnv,
@@ -48,9 +49,7 @@ export const validateEnvironment = (): void => {
   const requiredVars: Array<string> = [];
 
   if (requiredVars.length > 0) {
-    const missing = requiredVars
-      .filter((varName) => !process.env[varName])
-      .join(', ');
+    const missing = requiredVars.filter((varName) => !process.env[varName]).join(', ');
 
     if (missing) {
       throw new Error(`Missing required environment variables: ${missing}`);
