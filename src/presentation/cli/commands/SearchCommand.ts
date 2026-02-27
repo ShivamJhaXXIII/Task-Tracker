@@ -48,6 +48,10 @@ export class SearchCommand {
           .choices(['asc', 'desc'])
           .default('asc'),
       )
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli search "report"\n  $ task-cli search --status in-progress --priority high\n  $ task-cli search "api" --tags work,backend --sort dueDate --order asc',
+      )
       .action(
         async (
           query: string | undefined,
@@ -85,7 +89,11 @@ export class SearchCommand {
             Logger.section(`Search Results (${results.length})`);
             Logger.log(Formatter.formatTaskTable(results));
           } catch (error) {
-            Logger.error('Search failed');
+            Formatter.formatError(
+              'Search failed',
+              error instanceof Error ? error.message : 'Unknown error',
+              'Try a simpler query first, e.g. task-cli search "keyword"',
+            );
             throw error;
           }
         },

@@ -17,6 +17,10 @@ export class StatsCommand {
     return new Command('stats')
       .alias('statistics')
       .description('Show task statistics')
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli stats\n  $ task-cli statistics',
+      )
       .action(async () => {
         try {
           const stats = await useCase.execute();
@@ -24,7 +28,11 @@ export class StatsCommand {
           Logger.log(Formatter.formatStatistics(stats));
           Logger.empty();
         } catch (error) {
-          Logger.error('Failed to calculate statistics');
+          Formatter.formatError(
+            'Failed to calculate statistics',
+            error instanceof Error ? error.message : 'Unknown error',
+            'Make sure your task store is initialized and readable',
+          );
           throw error;
         }
       });

@@ -36,6 +36,10 @@ export class ListCommand {
           .choices(['asc', 'desc'])
           .default('asc'),
       )
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli list\n  $ task-cli list --status todo --priority high\n  $ task-cli ls --sort updatedAt --order desc',
+      )
       .action(
         async (options: {
           status?: string;
@@ -86,7 +90,11 @@ export class ListCommand {
             Logger.section(`Tasks (${tasks.length})`);
             Logger.log(Formatter.formatTaskTable(tasks));
           } catch (error) {
-            Logger.error('Failed to list tasks');
+            Formatter.formatError(
+              'Failed to list tasks',
+              error instanceof Error ? error.message : 'Unknown error',
+              'Try running without filters first: task-cli list',
+            );
             throw error;
           }
         },

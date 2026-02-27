@@ -40,6 +40,10 @@ export class UpdateCommand {
         '--tags <tags>',
         'New comma-separated tags (or empty to remove)',
       )
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli update <id> --status in-progress\n  $ task-cli edit <id> --priority high --tags work,urgent\n  $ task-cli update <id> --description "Updated task title"',
+      )
       .action(
         async (
           id: string,

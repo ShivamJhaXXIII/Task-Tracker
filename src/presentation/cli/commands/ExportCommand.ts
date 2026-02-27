@@ -12,6 +12,7 @@ import {
 } from '../../../application';
 import { ITaskRepository } from '../../../domain';
 import { Logger } from '../utils/Logger';
+import { Formatter } from '../utils/Formatter';
 
 export class ExportCommand {
   static create(repository: ITaskRepository): Command {
@@ -31,6 +32,10 @@ export class ExportCommand {
       .option(
         '--pretty',
         'Pretty print JSON output',
+      )
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli export --format json --output backup.json --pretty\n  $ task-cli export --format csv --output backup.csv',
       )
       .action(
         async (options: {
@@ -58,7 +63,11 @@ export class ExportCommand {
             Logger.info(`Format: ${options.format}`);
             Logger.info(`Size: ${data.length} bytes`);
           } catch (error) {
-            Logger.error('Failed to export tasks');
+            Formatter.formatError(
+              'Failed to export tasks',
+              error instanceof Error ? error.message : 'Unknown error',
+              'Check output path permissions, e.g. task-cli export --format json --output tasks.json',
+            );
             throw error;
           }
         },

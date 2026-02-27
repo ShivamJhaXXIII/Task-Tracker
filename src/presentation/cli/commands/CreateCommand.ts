@@ -34,6 +34,10 @@ export class CreateCommand {
         '-t, --tags <tags>',
         'Comma-separated tags (e.g., work,urgent)',
       )
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli add "Prepare sprint demo" --priority high --tags work,demo\n  $ task-cli create "Buy groceries" --due 2026-03-15',
+      )
       .action(
         async (
           description: string,

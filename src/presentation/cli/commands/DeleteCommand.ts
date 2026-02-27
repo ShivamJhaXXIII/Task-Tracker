@@ -19,6 +19,10 @@ export class DeleteCommand {
       .alias('rm')
       .description('Delete a task')
       .argument('<id>', 'Task ID')
+      .addHelpText(
+        'after',
+        '\nExamples:\n  $ task-cli delete <id>\n  $ task-cli rm <id>',
+      )
       .action(async (id: string) => {
         try {
           // In a real CLI, we might prompt for confirmation here

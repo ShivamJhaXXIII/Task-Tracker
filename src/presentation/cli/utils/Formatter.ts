@@ -4,7 +4,7 @@
  */
 import chalk from 'chalk';
 import Table from 'cli-table3';
-import { TaskResponseDTO } from '../../../application';
+import { TaskResponseDTO, type TaskStatistics } from '../../../application';
 import { Logger } from './Logger';
 
 export class Formatter {
@@ -147,7 +147,7 @@ export class Formatter {
   /**
    * Format statistics for display
    */
-  static formatStatistics(stats: any): string {
+  static formatStatistics(stats: TaskStatistics): string {
     const lines: string[] = [];
 
     lines.push(chalk.bold.cyan('📊 Task Statistics'));
@@ -163,7 +163,7 @@ export class Formatter {
       `  ${chalk.gray('To Do:')} ${chalk.gray(stats.byStatus.todo ?? 0)}`,
     );
     lines.push(
-      `  ${chalk.gray('In Progress:')} ${chalk.yellow(stats.byStatus['in-progress'] ?? 0)}`,
+      `  ${chalk.gray('In Progress:')} ${chalk.yellow(stats.byStatus.inProgress ?? 0)}`,
     );
     lines.push(
       `  ${chalk.gray('Done:')} ${chalk.green(stats.byStatus.done ?? 0)}`,
@@ -195,9 +195,9 @@ export class Formatter {
     if (stats.tagCounts && Object.keys(stats.tagCounts).length > 0) {
       lines.push(chalk.bold('Top Tags:'));
       const topTags = Object.entries(stats.tagCounts)
-        .sort((a: any, b: any) => b[1] - a[1])
+        .sort((a, b) => b[1] - a[1])
         .slice(0, 5)
-        .map(([tag, count]: any) => `  ${chalk.cyan(`#${tag}`)} (${count})`);
+        .map(([tag, count]) => `  ${chalk.cyan(`#${tag}`)} (${count})`);
       lines.push(...topTags);
     }
 
